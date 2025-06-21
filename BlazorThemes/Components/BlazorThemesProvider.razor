@@ -1,0 +1,154 @@
+﻿@using BlazorThemes.Services
+@using Microsoft.AspNetCore.Components.Web
+@implements IAsyncDisposable
+@inject BlazorThemesService BlazorThemesService
+@namespace BlazorThemes.Components
+
+<CascadingValue Value="BlazorThemesService" Name="BlazorThemesService">
+    <CascadingValue Value="@BlazorThemesService.State" Name="ThemeState">
+        @if (IsInitialized)
+        {
+            <ErrorBoundary>
+                @ChildContent
+            </ErrorBoundary>
+        }
+        else if (LoadingContent != null)
+        {
+            @LoadingContent
+        }
+        else
+        {
+            <div class="theme-loading">
+                <span>Loading theme...</span>
+            </div>
+        }
+    </CascadingValue>
+</CascadingValue>
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; } = default!;
+    [Parameter] public RenderFragment? LoadingContent { get; set; }
+    [Parameter] public ThemeOptions? Options { get; set; }
+    [Parameter] public EventCallback<ThemeState> OnThemeChanged { get; set; }
+    [Parameter] public EventCallback<string> OnSystemThemeChanged { get; set; }
+    [Parameter] public EventCallback OnProviderInitialized { get; set; }
+    [Parameter] public EventCallback<bool> OnTransitionStateChanged { get; set; }
+
+    // Enhanced parameters
+    [Parameter] public bool EnableScheduling { get; set; } = false;
+    [Parameter] public string LightStartTime { get; set; } = "06:00";
+    [Parameter] public string DarkStartTime { get; set; } = "18:00";
+    [Parameter] public ThemeTransitionType DefaultTransition { get; set; } = ThemeTransitionType.Fade;
+    [Parameter] public int TransitionDuration { get; set; } = 300;
+    [Parameter] public int DebounceDelay { get; set; } = 150;
+
+    private bool IsInitialized { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            // Subscribe to events before initialization
+            BlazorThemesService.OnThemeChanged += HandleThemeChanged;
+            BlazorThemesService.OnSystemThemeChanged += HandleSystemThemeChanged;
+            BlazorThemesService.OnInitialized += HandleInitialized;
+            BlazorThemesService.OnTransitionStateChanged += HandleTransitionStateChanged;
+
+            // Prepare enhanced options
+            var options = Options ?? new ThemeOptions();
+
+            // Apply enhanced parameters
+            options.EnableScheduling = EnableScheduling;
+            options.DebounceDelay = DebounceDelay;
+            options.TransitionDuration = TransitionDuration;
+            options.TransitionType = DefaultTransition.ToString().ToLower();
+            options.DisableTransitionOnChange = false; // Enable transitions by default
+
+            if (EnableScheduling)
+            {
+                options.ScheduleConfig = new ThemeScheduleConfig
+                {
+                    LightStart = LightStartTime,
+                    DarkStart = DarkStartTime,
+                    Timezone = "local"
+                };
+            }
+
+            // Initialize the service
+            await BlazorThemesService.InitializeAsync(options);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ThemeProvider initialization failed: {ex.Message}");
+            // Set initialized to true anyway to prevent hanging
+            IsInitialized = true;
+            StateHasChanged();
+        }
+    }
+
+    private async void HandleThemeChanged(ThemeState state)
+    {
+        await InvokeAsync(async () =>
+        {
+            StateHasChanged();
+            if (OnThemeChanged.HasDelegate)
+            {
+                await OnThemeChanged.InvokeAsync(state);
+            }
+        });
+    }
+
+    private async void HandleSystemThemeChanged(string systemTheme)
+    {
+        await InvokeAsync(async () =>
+        {
+            StateHasChanged();
+            if (OnSystemThemeChanged.HasDelegate)
+            {
+                await OnSystemThemeChanged.InvokeAsync(systemTheme);
+            }
+        });
+    }
+
+    private async void HandleInitialized()
+    {
+        await InvokeAsync(async () =>
+        {
+            IsInitialized = true;
+            StateHasChanged();
+            if (OnProviderInitialized.HasDelegate)
+            {
+                await OnProviderInitialized.InvokeAsync();
+            }
+        });
+    }
+
+    private async void HandleTransitionStateChanged(bool isTransitioning)
+    {
+        await InvokeAsync(async () =>
+        {
+            StateHasChanged();
+            if (OnTransitionStateChanged.HasDelegate)
+            {
+                await OnTransitionStateChanged.InvokeAsync(isTransitioning);
+            }
+        });
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            BlazorThemesService.OnThemeChanged -= HandleThemeChanged;
+            BlazorThemesService.OnSystemThemeChanged -= HandleSystemThemeChanged;
+            BlazorThemesService.OnInitialized -= HandleInitialized;
+            BlazorThemesService.OnTransitionStateChanged -= HandleTransitionStateChanged;
+
+            await BlazorThemesService.DisposeAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error disposing ThemeProvider: {ex.Message}");
+        }
+    }
+}

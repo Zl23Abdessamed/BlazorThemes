@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<!-- Target Framework -->
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Razor Compilation -->
+		<RazorCompileOnBuild>true</RazorCompileOnBuild>
+		<RazorCompileOnPublish>true</RazorCompileOnPublish>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+
+		<!-- NuGet Package Metadata -->
+		<PackageId>BlazorThemes</PackageId>
+		<Version>1.0.0</Version>
+		<Authors>Zalla Abdessamed</Authors>
+		<Description>
+			BlazorThemes: A flexible and extensible theme switcher for Blazor applications, with support for system themes, scheduling, and transitions.
+		</Description>
+		<PackageTags>
+			razor;class-library;ui;themes;modern;blazor;component;net9;customizable
+		</PackageTags>
+		<!-- Package Build Options -->
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<IncludeSymbols>true</IncludeSymbols>
+		<IncludeSource>true</IncludeSource>
+	</PropertyGroup>
+
+	<!-- For Blazor WebAssembly compatibility -->
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<!-- Package References -->
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.6" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.6" />
+	</ItemGroup>
+
+
+</Project>

@@ -1,4 +1,4 @@
-# 🎨 BlazorThemes
+﻿# 🎨 BlazorThemes
 ### Professional Theme Management for Blazor Applications
 
 ---
@@ -389,7 +389,7 @@ Your contributions help this project grow. Let’s build something great togethe
 ### Development Setup
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/BlazorThemes.git
+git clone https://github.com/Zl23Abdessamed/BlazorThemesWebTest
 
 # Navigate to project directory
 cd BlazorThemes
@@ -414,10 +414,9 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 🆘 Support
 
-- 📖 **Documentation**: [View full docs](https://blazorthemes.dev/docs)
-- 🐛 **Issues**: [Report bugs](https://github.com/BlazorThemes/BlazorThemes/issues)
-- 💬 **Discussions**: [Join the community](https://github.com/BlazorThemes/BlazorThemes/discussions)
-- 📧 **Email**: support@blazorthemes.dev
+- 📖 **Documentation**: [View full docs](https://github.com/Zl23Abdessamed/BlazorThemes)
+- 🐛 **Issues**: [Report bugs](https://github.com/Zl23Abdessamed/BlazorThemes/issues)
+- 📧 **Email**: a_zalla@estin.dz
 
 ---
 
@@ -425,6 +424,6 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 **Made with ❤️ for the Blazor community**
 
-[⭐ Star us on GitHub](https://github.com/BlazorThemes/BlazorThemes) | [📖 Documentation](https://blazorthemes.dev) | [🚀 Get Started](https://blazorthemes.dev/get-started)
+[⭐ Star us on GitHub](https://github.com/Zl23Abdessamed/BlazorThemes) | [📖 Documentation](https://github.com/Zl23Abdessamed/BlazorThemes) | [🚀 Get Started](https://zl23abdessamed.github.io/BlazorThemesWebTest)
 
 </div>

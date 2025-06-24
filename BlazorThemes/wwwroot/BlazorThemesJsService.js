@@ -11,7 +11,6 @@ class ThemeManager {
     static observers = new Set();
     static colorSchemeChangeListeners = new Set();
 
-    // Enhanced features
     static debounceDelay = 150;
     static transitionDuration = 300;
     static transitionType = 'fade';
@@ -28,37 +27,27 @@ class ThemeManager {
     static _isTransitioning = false;
     static _transitionElement = null;
 
-    // REPLACE the old init function with this one
 
     static init(options = {}) {
-        // Hold onto the custom themes from the options before doing anything else.
         const customThemesFromOptions = options.customThemes || [];
-
-        // CRITICAL FIX: Remove customThemes from the options object before assigning.
-        // This prevents Object.assign from overwriting our Set with an Array.
         if (options.customThemes) {
             delete options.customThemes;
         }
 
-        // Now, safely apply the rest of the configuration options.
         Object.assign(this, options);
 
-        // Now, loop through the themes from options and add them to our existing Set.
         if (customThemesFromOptions && Array.isArray(customThemesFromOptions)) {
             customThemesFromOptions.forEach(theme => {
                 this.customThemes.add(theme);
             });
         }
 
-        // Now that the customThemes Set is correctly populated,
-        // add all custom themes to the main 'themes' array.
         this.customThemes.forEach(theme => {
             if (!this.themes.includes(theme)) {
                 this.themes.push(theme);
             }
         });
 
-        // --- The rest of the function remains the same ---
 
         // Setup transition styles
         this.setupTransitionStyles();
@@ -189,17 +178,14 @@ class ThemeManager {
         // Determine if it should be dark theme
         let shouldBeDark;
         if (lightStart < darkStart) {
-            // Normal case: light 6:00-18:00, dark 18:00-6:00
             shouldBeDark = currentTime >= darkStart || currentTime < lightStart;
         } else {
-            // Inverted case: light 18:00-6:00, dark 6:00-18:00
             shouldBeDark = currentTime >= darkStart && currentTime < lightStart;
         }
 
         const scheduledTheme = shouldBeDark ? 'dark' : 'light';
         const currentTheme = this.getStoredTheme();
 
-        // Only change if current theme is auto or matches the scheduled theme
         if (!currentTheme || currentTheme === 'auto') {
             if (this.getResolvedTheme() !== scheduledTheme) {
                 this.applyThemeWithTransition(scheduledTheme, false);
@@ -277,11 +263,9 @@ class ThemeManager {
         }
     }
 
-    // AFTER THE FIX
     static async performThemeTransition(newTheme, persist, options = {}) {
         this._isTransitioning = true;
 
-        // CRITICAL FIX: Guard against null options passed from Blazor.
         const finalOptions = options || {};
 
         const transitionType = finalOptions.type || this.transitionType;

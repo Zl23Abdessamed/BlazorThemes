@@ -4,27 +4,16 @@ using BlazorThemes.Services;
 
 namespace BlazorThemes.Extensions
 {
-    /// <summary>
-    /// Extension methods for registering BlazorThemes services
-    /// </summary>
+    
     public static class BlazorThemesExtensions
     {
-        /// <summary>
-        /// Adds BlazorThemes services to the service collection with default configuration
-        /// </summary>
-        /// <param name="services">The service collection</param>
-        /// <returns>The service collection for chaining</returns>
+        
         public static IServiceCollection AddBlazorThemes(this IServiceCollection services)
         {
             return services.AddScoped<BlazorThemesService>();
         }
 
-        /// <summary>
-        /// Adds BlazorThemes services to the service collection with custom configuration
-        /// </summary>
-        /// <param name="services">The service collection</param>
-        /// <param name="configure">Configuration action for ThemeOptions</param>
-        /// <returns>The service collection for chaining</returns>
+        
         public static IServiceCollection AddBlazorThemes(this IServiceCollection services, Action<ThemeOptions> configure)
         {
             services.AddScoped<BlazorThemesService>();
@@ -32,29 +21,17 @@ namespace BlazorThemes.Extensions
             return services;
         }
 
-        /// <summary>
-        /// Adds BlazorThemes services with configuration from IConfiguration
-        /// </summary>
-        /// <param name="services">The service collection</param>
-        /// <param name="configuration">The configuration instance</param>
-        /// <param name="sectionName">Configuration section name (defaults to "ThemeOptions")</param>
-        /// <returns>The service collection for chaining</returns>
+        
         public static IServiceCollection AddBlazorThemes(this IServiceCollection services, IConfiguration configuration, string sectionName = "ThemeOptions")
         {
             services.AddScoped<BlazorThemesService>();
-            // Fixed: Use the overload that accepts IConfiguration and section name
             services.Configure<ThemeOptions>(opts =>
                 configuration.GetSection(sectionName).Bind(opts)
             );
             return services;
         }
 
-        /// <summary>
-        /// Adds BlazorThemes services with a pre-configured ThemeOptions instance
-        /// </summary>
-        /// <param name="services">The service collection</param>
-        /// <param name="options">Pre-configured theme options</param>
-        /// <returns>The service collection for chaining</returns>
+       
         public static IServiceCollection AddBlazorThemes(this IServiceCollection services, ThemeOptions options)
         {
             services.AddScoped<BlazorThemesService>();
@@ -78,13 +55,6 @@ namespace BlazorThemes.Extensions
             return services;
         }
 
-        /// <summary>
-        /// Adds BlazorThemes services with enhanced configuration options
-        /// </summary>
-        /// <param name="services">The service collection</param>
-        /// <param name="configureOptions">Configuration action for ThemeOptions</param>
-        /// <param name="configureScheduling">Configuration action for scheduling options</param>
-        /// <returns>The service collection for chaining</returns>
         public static IServiceCollection AddBlazorThemes(
             this IServiceCollection services,
             Action<ThemeOptions> configureOptions,
@@ -103,12 +73,6 @@ namespace BlazorThemes.Extensions
             return services;
         }
 
-        /// <summary>
-        /// Adds BlazorThemes services with common preset configurations
-        /// </summary>
-        /// <param name="services">The service collection</param>
-        /// <param name="preset">Preset configuration type</param>
-        /// <returns>The service collection for chaining</returns>
         public static IServiceCollection AddBlazorThemes(this IServiceCollection services, ThemePreset preset)
         {
             services.AddScoped<BlazorThemesService>();
@@ -193,34 +157,14 @@ namespace BlazorThemes.Extensions
         }
     }
 
-    /// <summary>
-    /// Predefined theme configuration presets
-    /// </summary>
+    // Predefined theme configuration presets
     public enum ThemePreset
     {
-        /// <summary>
-        /// Basic light/dark theme switching without transitions
-        /// </summary>
-        Basic,
-
-        /// <summary>
-        /// Enhanced theme switching with smooth transitions
-        /// </summary>
+     
+        Basic, 
         Enhanced,
-
-        /// <summary>
-        /// Automatic theme scheduling based on time of day
-        /// </summary>
         Scheduled,
-
-        /// <summary>
-        /// Advanced animated transitions between themes
-        /// </summary>
         Animated,
-
-        /// <summary>
-        /// Multiple theme support with custom themes
-        /// </summary>
         MultiTheme
     }
 }

@@ -49,11 +49,10 @@ namespace BlazorThemes.Services
         public string AttributeName { get; set; } = "data-theme";
         public bool EnableSystem { get; set; } = true;
         public bool EnableColorScheme { get; set; } = true;
-        public bool DisableTransitionOnChange { get; set; } = false; // Changed default for better UX
+        public bool DisableTransitionOnChange { get; set; } = false;
         public string? ForcedTheme { get; set; }
         public string? Nonce { get; set; }
 
-        // Enhanced options
         public int DebounceDelay { get; set; } = 150;
         public int TransitionDuration { get; set; } = 300;
         public string TransitionType { get; set; } = "fade";
@@ -270,7 +269,6 @@ namespace BlazorThemes.Services
             await ForceThemeAsync(null);
         }
 
-        // Enhanced scheduling methods
         public async Task<bool> EnableSchedulingAsync(bool enable = true)
         {
             if (_jsModule is null) return false;
@@ -317,7 +315,6 @@ namespace BlazorThemes.Services
             return await SetScheduleAsync(config);
         }
 
-        // Enhanced transition methods
         public async Task<bool> SetTransitionTypeAsync(ThemeTransitionType transitionType, int? duration = null)
         {
             if (_jsModule is null) return false;

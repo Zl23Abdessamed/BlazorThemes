@@ -26,7 +26,6 @@ BlazorThemes is a comprehensive theme management solution for Blazor application
 ### 🔧 **Developer Experience**
 - **CSS Variable Support**: Apply custom properties for each theme
 - **Event System**: Notifications for theme changes and system updates
-- **TypeScript Support**: Full type safety and IntelliSense
 
 ---
 
@@ -178,6 +177,80 @@ await ThemesService.ForceThemeAsync("midnight");
 
 // Clear forced theme and return to user preference
 await ThemesService.ClearForcedThemeAsync();
+```
+
+---
+
+## 🎨 Styling Methodology
+
+BlazorThemes uses a CSS variable-based approach with attribute selectors for theme management. This provides maximum flexibility and performance while maintaining separation of concerns.
+
+### Core Styling Approach
+
+```css
+/* Theme-specific variables */
+[data-theme="light"] {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --text-primary: #1e293b;
+    --accent-primary: #3b82f6;
+    /* ...other variables */
+}
+
+[data-theme="dark"] {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --text-primary: #f1f5f9;
+    --accent-primary: #60a5fa;
+    /* ...other variables */
+}
+
+/* Component styling using variables */
+.component {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+}
+
+.button {
+    background-color: var(--accent-primary);
+    color: var(--text-on-accent);
+}
+```
+
+### Cascade Support
+
+Supports nested theming with different sections:
+
+```html
+<div data-theme="dark">
+  <!-- Uses dark theme -->
+  <div data-theme="light">
+    <!-- Uses light theme -->
+  </div>
+</div>
+```
+
+### Creating New Themes
+
+Add CSS variables for your theme:
+
+```css
+[data-theme="midnight"] {
+    --bg-primary: #121826;
+    --text-primary: #e0e7ff;
+    --accent-primary: #7e22ce;
+    /* ... */
+}
+```
+
+### Using Variables in Components
+
+```razor
+<div class="card" style="background: var(--bg-card); color: var(--text-card);">
+    <h3 style="color: var(--heading-color);">@Title</h3>
+    <p>@Content</p>
+</div>
 ```
 
 ---
@@ -370,6 +443,7 @@ Here's a complete example of a theme-aware component:
 ```
 
 ---
+
 ## 🤝 Contributing
 
 We welcome contributions!
@@ -383,8 +457,7 @@ Ways you can get involved:
 - **Join the discussion** and share your thoughts—we're always open to fresh perspectives.
 - **Spread the word** if you find this useful!
 
-Your contributions help this project grow. Let’s build something great together.
-
+Your contributions help this project grow. Let's build something great together.
 
 ### Development Setup
 ```bash
@@ -396,9 +469,6 @@ cd BlazorThemes
 
 # Restore dependencies
 dotnet restore
-
-# Run tests
-dotnet test
 
 # Start development server
 dotnet run

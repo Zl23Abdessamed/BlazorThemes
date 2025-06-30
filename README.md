@@ -417,7 +417,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 - 📖 **Documentation**: [View full docs](https://blazorthemes.dev/docs)
 - 🐛 **Issues**: [Report bugs](https://github.com/BlazorThemes/BlazorThemes/issues)
 - 💬 **Discussions**: [Join the community](https://github.com/BlazorThemes/BlazorThemes/discussions)
-- 📧 **Email**: support@blazorthemes.dev
+- 📧 **Email**: a_zalla@estin.dz
 
 ---
 

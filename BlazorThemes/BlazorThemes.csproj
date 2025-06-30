@@ -13,7 +13,7 @@
 
 		<!-- NuGet Package Metadata -->
 		<PackageId>BlazorThemes</PackageId>
-		<Version>1.0.0</Version>
+		<Version>1.0.1</Version>
 		<Authors>Zalla Abdessamed</Authors>
 		<Description>
 			BlazorThemes: A flexible and extensible theme switcher for Blazor applications, with support for system themes, scheduling, and transitions.

@@ -389,7 +389,7 @@ Your contributions help this project grow. Let’s build something great togethe
 ### Development Setup
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/BlazorThemes.git
+git clone https://github.com/Zl23Abdessamed/BlazorThemes
 
 # Navigate to project directory
 cd BlazorThemes
@@ -397,11 +397,6 @@ cd BlazorThemes
 # Restore dependencies
 dotnet restore
 
-# Run tests
-dotnet test
-
-# Start development server
-dotnet run
 ```
 
 ---

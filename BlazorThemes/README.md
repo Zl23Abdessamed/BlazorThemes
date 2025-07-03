@@ -462,7 +462,7 @@ Your contributions help this project grow. Let's build something great together.
 ### Development Setup
 ```bash
 # Clone the repository
-git clone https://github.com/Zl23Abdessamed/BlazorThemesWebTest
+git clone https://github.com/Zl23Abdessamed/BlazorThemes
 
 # Navigate to project directory
 cd BlazorThemes
@@ -470,8 +470,6 @@ cd BlazorThemes
 # Restore dependencies
 dotnet restore
 
-# Start development server
-dotnet run
 ```
 
 ---
